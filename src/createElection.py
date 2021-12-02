@@ -1,8 +1,11 @@
 import uuid
 import random
-import utils.password
+import utils.password, utils.math
 
 election_uuid = '6e5a5e7a-bf28-4fd7-882f-bc32180f9806'
+
+generator = random.randint(1, prime - 1)
+
 
 a_users = [
   {'firstname': 'Yohann', 'lastname': 'Valo', 'email': 'yvalo@gmail.com'},
@@ -24,12 +27,9 @@ for user in e_users:
   s = utils.password.generate_pkdf2(password, election_uuid)
 
   prime = 14781221331231416261
+  pubkey =  utils.math.exponentiation(generator, s, prime)
 
-  generator = random.randint(1, prime - 1)
-
-  pubkey = 
-
-
+  print(pubkey)
 
 
 

@@ -6,7 +6,6 @@ def exponentiation(a, n, m):
     pow = 1
 
     while n > 0:
-        print(f'[ {i} ] {a} ^ {pow:2d} mod {m} = {c % m}')
         k = n % 2
         n = n >> 1
         if k == 1:
