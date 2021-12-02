@@ -45,7 +45,7 @@ def generate_prime_candidate(length):
     # apply a mask to set MSB and LSB to 1
     p |= (1 << length - 1) | 1
     return p
-def generate_prime_number(length=1024):
+def generate_prime_number(length=512):
     """ Generate a prime
         Args:
             length -- int -- length of the prime to generate, in          bits
@@ -53,6 +53,25 @@ def generate_prime_number(length=1024):
     """
     p = 4
     # keep generating while the primality test fail
+    i = 0
     while not is_prime(p, 128):
         p = generate_prime_candidate(length)
+        i += 1
     return p
+
+def generate_secure_prime_number(length=512):
+    n = 0
+    i = 0
+    while True:
+        p = generate_prime_number(length=length)
+        n = p * 2 + 1
+
+        if is_prime(n, 128):
+            return p, n
+
+        i += 1
+        print(f'{i} attemps')
+
+
+
+print(generate_secure_prime_number(length=))

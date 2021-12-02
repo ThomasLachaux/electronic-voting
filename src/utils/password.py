@@ -15,7 +15,4 @@ def generate_password():
 def generate_pkdf2(c, election_uuid):
   hash = hashlib.pbkdf2_hmac('sha256', c.encode(), election_uuid.encode(), 1000)
 
-  return hash.hex()
-
-if __name__ == '__main__':
-  print(generate_password())
+  return int.from_bytes(hash, 'big')

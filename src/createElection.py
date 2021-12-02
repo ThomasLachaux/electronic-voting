@@ -23,9 +23,14 @@ for user in e_users:
   password = utils.password.generate_password()
   s = utils.password.generate_pkdf2(password, election_uuid)
 
-  prime = 8790983876703039375276380170349151573129340767447446224601093198268145005019968562588520506029452356771863978219815720626738141073037919012019521143795973
+  prime = 14781221331231416261
 
-  
+  generator = random.randint(1, prime - 1)
+
+  pubkey = 
+
+
+
 
 
   
