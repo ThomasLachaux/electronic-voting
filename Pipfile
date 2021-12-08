@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 base58 = "*"
+pyinquirer = "*"
 
 [dev-packages]
 
