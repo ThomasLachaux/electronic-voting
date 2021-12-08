@@ -3,7 +3,10 @@ import json
 import uuid
 
 class serverA():
+
   def __init__(self):
+    self.pubkeys = []
+
     # Load users.json
     basepath = path.dirname(__file__)
     file = open(path.join(basepath, '../database/users.json'), 'r')
