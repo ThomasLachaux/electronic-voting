@@ -1,3 +1,6 @@
+import random
+
+from utils.password import generate_password
 def exponentiation(a, n, m):
 
     b = 1
@@ -15,3 +18,13 @@ def exponentiation(a, n, m):
         pow *= 2
 
     return b % m
+ 
+def getGenerator(p):
+    gen = False
+    while gen == False:
+        r = random.randrange(1, p)
+        g = exponentiation(r, p-1, p)
+        if g == 1 :
+            gen = True
+    return r
+

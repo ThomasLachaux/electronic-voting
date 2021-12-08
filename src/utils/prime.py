@@ -67,11 +67,8 @@ def generate_secure_prime_number(length=512):
         n = p * 2 + 1
 
         if is_prime(n, 128):
-            return p, n
-
-        i += 1
-        print(f'{i} attemps')
+            return p
 
 
 
-print(generate_secure_prime_number(length=))
+#print(generate_secure_prime_number()
