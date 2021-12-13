@@ -6,7 +6,7 @@ class serverA():
 
   def __init__(self):
     self.pubkeys = []
-
+    trusted_pubkey = []
   # au démarrage, load user.json
   def create_election(self, election_name, serverE):
     # Load users.json
@@ -14,7 +14,6 @@ class serverA():
     file = open(path.join(basepath, '../database/users.json'), 'r')
     self.users = json.load(file)
     file.close()
-
 
     election_id = str(uuid.uuid4())
 

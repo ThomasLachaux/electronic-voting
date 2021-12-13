@@ -27,10 +27,18 @@ class serverE():
     file.write(json.dumps({'id': election_id, 'name': election_name, 'users': users}))
     file.close()
 
+  # permet d'acceder à la pubkey des trusted
+    file = open(path.join(basepath, f'../database/trusted.json'), 'r')
+    config = json.load(file)
+    trusted_pubkey = config[0]["trusted_pubkey"]
+    file.close()
+    self.trusted_pubkey = trusted_pubkey
     self.users = users
 
   def send_pubkeys(self, serverA):
     pubkeys = [user['pubkey'] for user in self.users]
     random.shuffle(pubkeys)
+    trusted_pubkey = self.trusted_pubkey
 
     serverA.pubkeys = pubkeys
+    serverA.trusted_pubkey = trusted_pubkey

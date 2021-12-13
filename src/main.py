@@ -1,5 +1,3 @@
-from servers import *
-from servers import serverA, serverE
 from PyInquirer import prompt
 
 questions = {
@@ -18,10 +16,4 @@ questions = {
 answer = prompt(questions)
 
 submenu = __import__(f"menu.{answer['menu']}", fromlist=[None])
-submenu.entrypoint()
-
-a = serverA.serverA()
-e = serverE.serverE()
-
-a.create_election('Election présidentielle', e)
-e.send_pubkeys(a)
+submenu.entrypoint() 

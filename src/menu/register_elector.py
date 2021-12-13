@@ -1,4 +1,3 @@
-from hashlib import new
 from PyInquirer import prompt
 import json
 from os import path
