@@ -5,9 +5,9 @@ questions = {
   'name': 'menu',
   'message': 'Bonjour ô maître Rémi ! Comme puis-je aider votre Sainteté ?',
   'choices': [
+    {'name': 'Créer une élection', 'value': 'create_election'},
+    {'name': 'Créer un electeur', 'value': 'create_elector'},
     {'name': 'Créer un vote', 'value': 'create_vote'},
-    {'name': 'Enregistrer un electeur', 'value': 'register_elector'},
-    {'name': 'Enregistrer un vote', 'value': 'register_vote'},
     {'name': 'Vérifier un vote', 'value': 'check_vote'},
     {'name': 'Procéder au dépouillement', 'value': 'proceed_counting'}
   ]

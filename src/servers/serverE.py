@@ -10,7 +10,7 @@ credentials_g = 2
 
 class serverE():
   
-  def create_election(self, election_id, election_name, users):
+  def create_election(self, election_id, election_name, candidates, users):
     for user in users:
       user['uuid'] = str(uuid.uuid4())
       
@@ -23,8 +23,8 @@ class serverE():
 
 
     basepath = path.dirname(__file__)
-    file = open(path.join(basepath, f'../database/elections/{election_id}.json'), 'w')
-    file.write(json.dumps({'id': election_id, 'name': election_name, 'users': users}))
+    file = open(path.join(basepath, f'../database/elections/{election_name}.json'), 'w')
+    file.write(json.dumps({'id': election_id, 'name': election_name, 'candidates': candidates, 'users': users}, indent=4))
     file.close()
 
   # permet d'acceder à la pubkey des trusted
