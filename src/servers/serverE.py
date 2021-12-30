@@ -9,7 +9,13 @@ credentials_p = 3231700607131100730033891392642382824881794124114023911284200975
 credentials_g = 2
 
 class serverE():
-  
+
+  def __init__(self):
+      basepath = path.dirname(__file__)
+      self.db_path = path.join(self.basepath, f'../database/server_e.json')
+      self.elections = []
+
+
   def create_election(self, election_id, election_name, candidates, users):
     for user in users:
       user['uuid'] = str(uuid.uuid4())
@@ -21,11 +27,9 @@ class serverE():
       pubkey =  utils.math.exponentiation(credentials_g, s, credentials_p)
       user['pubkey'] = pubkey  
 
+    self.elections.append({'id': election_id, 'name': election_name, 'candidates': candidates, 'users': users})
 
-    basepath = path.dirname(__file__)
-    file = open(path.join(basepath, f'../database/elections/{election_name}.json'), 'w')
-    file.write(json.dumps({'id': election_id, 'name': election_name, 'candidates': candidates, 'users': users}, indent=4))
-    file.close()
+  
 
   # permet d'acceder à la pubkey des trusted
     file = open(path.join(basepath, f'../database/trusted.json'), 'r')
@@ -42,3 +46,16 @@ class serverE():
 
     serverA.pubkeys = pubkeys
     serverA.trusted_pubkey = trusted_pubkey
+
+  def save(self):
+    file = open(self.db_path, 'w')
+    file.write(json.dumps({'elections': self.elections}, indent=4))
+    file.close()
+
+  def load(self):
+    if path.isfile(self.db_path):
+      file = open(self.db_path, 'r')
+      data = json.load()
+      self.elections = 
+
+

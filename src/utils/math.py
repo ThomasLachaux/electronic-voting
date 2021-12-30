@@ -27,4 +27,3 @@ def getGenerator(p):
         if g == 1 :
             gen = True
     return r
-

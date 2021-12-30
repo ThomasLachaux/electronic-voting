@@ -3,44 +3,51 @@ import json
 from os import path
 from servers import serverA, serverE
 
+
+def ask_multiple_items(item_name: str):
+  items = []
+
+  while True:
+    if len(items) > 0:
+      print(f'{item_name.capitalize()} : {" ".join(items)}')
+
+    items_questions = [{
+    'type': 'input',
+    'name': 'name',
+    'message': f"Nom {len(items) + 1} (vide pour terminer)"
+    }]
+
+    item = prompt(items_questions)
+
+    # If answered empty
+    if not item['name']:
+      if len(items) == 0:
+        print(f'Veuillez ajouter au moins un {item_name}')
+
+      else:
+        break
+    # Otherwise, add the candidate
+    else:
+      items.append(item['name'])
+
+  return items
+
 main_questions = [{
     'type': 'input',
     'name': 'election_name',
     'message': 'Titre de l\'election'
   }]
 
-
-
 def entrypoint():
   election_name = prompt(main_questions)
 
+  candidates = ask_multiple_items('candidats')
+  trusteds = ask_multiple_items('dépouilleur')
 
-  candidates = []
+  print(candidates)
+  print(trusteds)
 
-  while True:
-    if len(candidates) > 0:
-      print(f'Candidats : {" ".join(candidates)}')
-
-    candidate_questions = [{
-    'type': 'input',
-    'name': 'name',
-    'message': f"Nom du candidat {len(candidates) + 1} (vide pour terminer)"
-    }]
-
-    candidate = prompt(candidate_questions)
-
-    # If answered empty
-    if not candidate['name']:
-      if len(candidates) == 0:
-        print('Veuillez ajouter au moins un candidat')
-
-      else:
-        break
-    # Otherwise, add the candidate
-    else:
-      candidates.append(candidate['name'])
-
-    a = serverA.serverA()
-    e = serverE.serverE()
-    a.create_election(election_name['election_name'], candidates, e)
-    e.send_pubkeys(a)
+  a = serverA.serverA()
+  e = serverE.serverE()
+  a.create_election(election_name['election_name'], candidates, e)
+  e.send_pubkeys(a)
