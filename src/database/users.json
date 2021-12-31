@@ -1,1 +1,11 @@
-[{"firstname": "Yohann", "lastname": "Valo", "email": "yvalo@gmail.com"}, {"firstname": "Thomas", "lastname": "de Lachaux", "email": "tdelachaux@gmail.com"}, {"firstname": "a", "lastname": "a", "email": "a"}, {"firstname": "nico", "lastname": "che", "email": "lsdkfjs"}]
+[
+  { "firstname": "Yohann", "lastname": "Valo", "email": "yvalo@gmail.com" },
+  {
+    "firstname": "Thomas",
+    "lastname": "de Lachaux",
+    "email": "tdelachaux@gmail.com"
+  },
+  { "firstname": "a", "lastname": "a", "email": "a" },
+  { "firstname": "nico", "lastname": "che", "email": "lsdkfjs" },
+  { "firstname": "xav", "lastname": "xav", "email": "test" }
+]
