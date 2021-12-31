@@ -11,7 +11,7 @@ def list_elections():
   
   return elections
 
-def entrypoint():
+def entrypoint(a, e, s):
 
   questions = {
     'type': 'list',

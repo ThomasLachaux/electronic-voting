@@ -6,7 +6,7 @@ from servers import serverA, serverE
 
 def ask_multiple_items(item_name: str):
   items = []
-
+  
   while True:
     if len(items) > 0:
       print(f'{item_name.capitalize()} : {" ".join(items)}')
@@ -14,7 +14,7 @@ def ask_multiple_items(item_name: str):
     items_questions = [{
     'type': 'input',
     'name': 'name',
-    'message': f"Nom {len(items) + 1} (vide pour terminer)"
+    'message': f"{item_name.capitalize()} {len(items) + 1} (vide pour terminer)"
     }]
 
     item = prompt(items_questions)
@@ -38,7 +38,7 @@ main_questions = [{
     'message': 'Titre de l\'election'
   }]
 
-def entrypoint():
+def entrypoint(a, e, s):
   election_name = prompt(main_questions)
 
   candidates = ask_multiple_items('candidats')
@@ -47,7 +47,4 @@ def entrypoint():
   print(candidates)
   print(trusteds)
 
-  a = serverA.serverA()
-  e = serverE.serverE()
-  a.create_election(election_name['election_name'], candidates, e)
-  e.send_pubkeys(a)
+  a.create_election(election_name['election_name'], candidates)
