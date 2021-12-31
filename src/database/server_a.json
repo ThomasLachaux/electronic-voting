@@ -16,5 +16,16 @@
             ]
         }
     },
-    "users": []
+    "users": [
+        {
+            "firstname": "a",
+            "lastname": "a",
+            "email": "a"
+        },
+        {
+            "firstname": "Thomas",
+            "lastname": "de Lachaux",
+            "email": "thomas@lachaux.fr"
+        }
+    ]
 }

@@ -19,6 +19,8 @@ questions = [{
 
 def entrypoint(a, e, s):
     new_user = prompt(questions)
+    a.create_user(new_user)
+    print('User created')
 
 
     
