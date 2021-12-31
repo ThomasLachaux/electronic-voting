@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant U as Utilisateur
+    participant T as Trusted
+    participant A as Serveur A
+    participant E as Serveur E
+    participant S as Serveur S
+    opt Mise en place
+    A->>U: Demande les informations sur l'election
+    A->>E: Ajoute un UUID et transmet la liste
+    E->>E: Génère un couple de clés
+    E->>U: Envoie l'identifiant secret
+    E->>A: Mélange les clés publique et les envoie
+    A->>T: Demande une clé publique
+    T->>A: Transmet une clé publique
+    A->>S: Envoie les clé publiques + les donnés de l'eléction
+    end
+
+            
