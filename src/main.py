@@ -25,6 +25,7 @@ questions = {
     {'name': 'Vérifier un vote', 'value': 'check_vote'},
     {'name': 'Procéder au dépouillement', 'value': 'proceed_counting'},
     {'name': 'Supprimer des données', 'value': 'delete_data'},
+    {'name': 'Quitter', 'value': 'quit'}
   ]
 }
 
@@ -37,7 +38,12 @@ e.set_servers(a, s)
 s.set_servers(a, e)
 
 while True:
-  answer = prompt(questions)
+  answer = prompt(questions)['menu']
 
-  submenu = __import__(f"menu.{answer['menu']}", fromlist=[None])
+  if answer == 'quit':
+    break
+
+  submenu = __import__(f"menu.{answer}", fromlist=[None])
   submenu.entrypoint(a, e, s) 
+
+print('Au revoir')
