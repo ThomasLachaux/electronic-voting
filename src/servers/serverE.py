@@ -31,19 +31,25 @@ class serverE():
       password = utils.password.generate_password()
       user['c'] = password
 
-      s = utils.password.generate_pkdf2(password, election['id'])
+      s = utils.password.generate_pkdf2(password, election_id)
       pubkey =  utils.math.exponentiation(credentials_g, s, credentials_p)
       user['pubkey'] = pubkey  
 
     self.elections[election_id] = election
     self.save()
 
-    # Send pubkeys to A
+    # Create pubkeys list
     pubkeys = [user['pubkey'] for user in election['users']]
     random.shuffle(pubkeys)
 
+    # SEnd pubkeys to S
     self.server_a.elections[election_id]['pubkeys'] = pubkeys
     self.server_a.save()
+
+    # Send pubkeys to S and election data
+    self.server_s.elections[election_id] = {'pubkeys': pubkeys, 'name': election['name'], 'candidates': election['candidates']}
+    self.server_s.save()
+
 
   def save(self):
     file = open(self.db_path, 'w')

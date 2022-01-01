@@ -35,6 +35,8 @@ class serverA():
     election['trusteds'] = [example_trusted]
     self.save()
 
+
+
   def create_user(self, new_user):
     self.users.append(new_user)
     self.save()
