@@ -57,7 +57,7 @@ class serverE():
     self.server_a.save()
 
     # Send pubkeys to S and election data
-    self.server_s.elections[election_id] = {'pubkeys': pubkeys, 'name': election['name'], 'candidates': election['candidates']}
+    self.server_s.elections[election_id] = {'pubkeys': pubkeys, 'name': election['name'], 'candidates': election['candidates'], 'voted': [], 'results': [], 'signatures': []}
     self.server_s.save()
 
 

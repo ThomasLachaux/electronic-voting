@@ -35,25 +35,18 @@ def entrypoint(a, e, s):
   answers = prompt(questions)
   
   election_id, election = answers['election']
-  candidate_id = answers['candidate_id']
+  # Add + 1 for security
+  candidate_id = answers['candidate_id'] + 1
   user_id = answers['user_id']
   user = election['users'][user_id]
 
   encrypted_candidate = utils.elgamal.encrypt(candidate_id, user['pubkey'])
 
-  zkp = utils.zero_knowledge_proof.prove(election_id, answers['secret'])
+  signature = utils.zero_knowledge_proof.prove(election_id, answers['secret'])
 
-  ballot = {'election_id': election_id, 'user_id': user_id, 'encrypted_candidate': encrypted_candidate, 'zkp': zkp}
+  ballot = {'election_id': election_id, 'user_id': user_id, 'encrypted_candidate': encrypted_candidate, 'signature': signature, 'pubkey': user['pubkey']}
 
   s.vote(ballot)
-
-  # demander a l'user son mail
-  # Demander l'email à E (ou uuid car plus simple) => retrouver la clé publique 
-  # demander sur quelle election il veut voter
-  # demander le candidat
-  # demander le mot passe
-  # créer le ballot avec elgamal avec, l'id de l'election, l'uuid du votant, le vote chiffré, et la signateur ZKP
-  # le serveur vérifie le ZKP, regarde si l'uuid du votant n'existe pas pour l'election, et l'ajoute
 
 if __name__ == '__main__':
   entrypoint()

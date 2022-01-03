@@ -16,15 +16,15 @@ def prove(election_id, secret):
   pubkey = utils.math.exponentiation(g, s, p)
 
   # Génération du challenge
-  challenge_proof = hashlib.sha256(str(pubkey + a).encode())
-  challenge = int.from_bytes(challenge_proof.digest(), 'big')
+  challenge_hash = hashlib.sha256(str(pubkey + a).encode())
+  challenge_proof = int.from_bytes(challenge_hash.digest(), 'big')
 
-  challenge_response = (w - s * challenge) % p 
-  return challenge_response, challenge
+  challenge_response = (w - s * challenge_proof) % p 
+  return challenge_response, challenge_proof, challenge_hash.hexdigest()
 
-def verify(challenge_response, s, challenge_proof):
-  a = (utils.math.exponentiation(g, challenge_response, p) * utils.math.exponentiation(s, challenge_proof, p)) % p
-  challenge_verify = hashlib.sha256(str(s + a).encode())
+def verify(pubkey, challenge_response, challenge_proof):
+  a = (utils.math.exponentiation(g, challenge_response, p) * utils.math.exponentiation(pubkey, challenge_proof, p)) % p
+  challenge_verify = hashlib.sha256(str(pubkey + a).encode())
   challenge = int.from_bytes(challenge_verify.digest(), 'big')
 
   return challenge == challenge_proof
