@@ -2,6 +2,8 @@ from os import path
 import json
 import uuid
 from copy import deepcopy
+import utils.password
+from utils.constants import g, p
 
 # TODO: Virer ça
 example_trusted = {
@@ -26,7 +28,7 @@ class serverA():
     self.server_s = s
 
   # au démarrage, load user.json
-  def create_election(self, election_name, candidates):
+  def create_election(self, election_name, candidates, trusteds):
     election_id = str(uuid.uuid4())
     election = {'name': election_name, 'candidates': candidates, 'users': self.users}
     self.elections[election_id] = election
@@ -34,9 +36,34 @@ class serverA():
     # deep copy the election to pass the object by value and not reference
     self.server_e.create_election(election_id, deepcopy(election))
 
-    election['trusteds'] = [example_trusted]
+    common_privkey = 0
+
+    trusteds_list = []
+    for trusted_name in trusteds:
+      password = utils.password.generate_password()
+      s = utils.password.generate_pkdf2(password, election_id)
+      pubkey = utils.math.exponentiation(g, s, p)
+
+      trusted = {'name': trusted_name, 'c': password, 'pubkey': pubkey}
+      trusteds_list.append(trusted)
+
+      # Forge the common election public key
+      common_privkey += s
+
+    election['trusteds'] = trusteds_list
     self.save()
 
+    # Generate the public key of the election
+    common_pubkey = utils.math.exponentiation(g, common_privkey, p)
+
+    # Add the common election public key to S and E
+    self.server_s.elections[election_id]['election_privkey'] = common_privkey
+    self.server_s.elections[election_id]['election_pubkey'] = common_pubkey
+    self.server_s.save()
+
+    self.server_e.elections[election_id]['election_privkey'] = common_privkey
+    self.server_e.elections[election_id]['election_pubkey'] = common_pubkey
+    self.server_e.save()
 
 
   def create_user(self, new_user):

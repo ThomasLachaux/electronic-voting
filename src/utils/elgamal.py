@@ -13,7 +13,6 @@ def encrypt(message, pubkey):
 
 def decrypt(c1, c2, election_privkey):
   # TODO: c'est quoi ce k ?
-  k = utils.math.exponentiation(c2, election_privkey, p)
   p_1_x = p - 1 - election_privkey
   k_1 =  utils.math.exponentiation(c2, p_1_x, p)
   m = c1 * k_1 % p

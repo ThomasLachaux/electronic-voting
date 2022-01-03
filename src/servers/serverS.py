@@ -28,7 +28,7 @@ class serverS():
       return
 
     election['voted'].append(ballot['pubkey'])
-    election['ballots'].append(ballot['encrypted_candidate'])
+    election['results'].append(ballot['encrypted_candidate'])
     election['signatures'].append(challenge_hash)
     self.save()
     print('A voté !')

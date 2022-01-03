@@ -40,7 +40,7 @@ def entrypoint(a, e, s):
   user_id = answers['user_id']
   user = election['users'][user_id]
 
-  encrypted_candidate = utils.elgamal.encrypt(candidate_id, user['pubkey'])
+  encrypted_candidate = utils.elgamal.encrypt(candidate_id, election['election_pubkey'])
 
   signature = utils.zero_knowledge_proof.prove(election_id, answers['secret'])
 
