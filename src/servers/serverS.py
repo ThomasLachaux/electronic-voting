@@ -1,5 +1,6 @@
 from os import path
 import json
+import utils.zero_knowledge_proof
 
 class serverS():
   """
@@ -12,6 +13,9 @@ class serverS():
       
       self.load()
 
+  def vote(self, ballot):
+    pass
+  
   def set_servers(self, a, e):
     self.server_a = a
     self.server_e = e

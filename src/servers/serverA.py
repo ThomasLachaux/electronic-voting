@@ -1,6 +1,7 @@
 from os import path
 import json
 import uuid
+from copy import deepcopy
 
 # TODO: Virer ça
 example_trusted = {
@@ -30,7 +31,8 @@ class serverA():
     election = {'name': election_name, 'candidates': candidates, 'users': self.users}
     self.elections[election_id] = election
 
-    self.server_e.create_election(election_id, election)
+    # deep copy the election to pass the object by value and not reference
+    self.server_e.create_election(election_id, deepcopy(election))
 
     election['trusteds'] = [example_trusted]
     self.save()

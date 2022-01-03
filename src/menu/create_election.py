@@ -43,8 +43,5 @@ def entrypoint(a, e, s):
 
   candidates = ask_multiple_items('candidats')
   trusteds = ask_multiple_items('dépouilleur')
-
-  print(candidates)
-  print(trusteds)
-
+  
   a.create_election(election_name['election_name'], candidates)
