@@ -46,6 +46,8 @@ def entrypoint(a, e, s):
 
     results[decrypted_vote] += 1
 
-  print(results)
 
+  print("Resultat des élections: ")
+  for result_id, result in enumerate(results):
+    print(f"{election['candidates'][result_id]}: {result}")
   
