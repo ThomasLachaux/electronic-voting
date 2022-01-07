@@ -1,7 +1,10 @@
 from PyInquirer.prompt import prompt
 
+from utils.terminal import print_title
+
 
 def entrypoint(a, e, s):
+  print_title('Vérifier un vote')
 
   questions = [
     {

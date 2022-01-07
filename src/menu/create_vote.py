@@ -7,9 +7,12 @@ import utils.zero_knowledge_proof
 import utils.password
 import json
 import utils.blowfish
+from utils.terminal import print_title
 
 
 def entrypoint(a, e, s):
+  print_title('Créer un vote')
+
   questions = [
     {
       'type': 'input',

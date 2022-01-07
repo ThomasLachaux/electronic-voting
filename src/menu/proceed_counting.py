@@ -1,9 +1,17 @@
 from PyInquirer.prompt import prompt
+from rich import box
+from rich.align import Align
 import utils.password
 import utils.elgamal
+from utils.terminal import print_title
+from rich.console import Console
+from rich.table import Table
+import shutil
 
 
 def entrypoint(a, e, s):
+  print_title('Compter les votes')
+
 
   elections = [{'name': election['name'], 'value': election_id} for election_id, election in s.elections.items()]
 
@@ -46,8 +54,18 @@ def entrypoint(a, e, s):
 
     results[decrypted_vote] += 1
 
+  console = Console()
+  print_title('🏆 Résultat des élections 🏆')
 
-  print("Resultat des élections: ")
+  term_columns, term_rows = shutil.get_terminal_size()
+  table = Table(expand=True, box=box.SQUARE, width=int(term_columns * 3 / 4))
+
+  table.add_column('Candidats', style='green', width=int(term_columns * 3 / 8))
+  table.add_column('Voix', justify='right', style='red', width=int(term_columns * 3 / 8))
   for result_id, result in enumerate(results):
-    print(f"{election['candidates'][result_id]}: {result}")
+    table.add_row(election['candidates'][result_id], str(result))
+
+  table = Align.center(table)
+  console.print(table)
+  input()
   

@@ -1,5 +1,6 @@
 from PyInquirer import prompt
 import json
+from utils.terminal import print_title
 from os import path
 
 
@@ -18,9 +19,11 @@ questions = [{
   }]
 
 def entrypoint(a, e, s):
-    new_user = prompt(questions)
-    a.create_user(new_user)
-    print('User created')
+  print_title('Créer un électeur')
+
+  new_user = prompt(questions)
+  a.create_user(new_user)
+  print('User created')
 
 
     

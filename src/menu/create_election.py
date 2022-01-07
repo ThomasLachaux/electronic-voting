@@ -2,6 +2,7 @@ from PyInquirer import prompt
 import json
 from os import path
 from servers import serverA, serverE
+from utils.terminal import print_title
 
 
 def ask_multiple_items(item_name: str):
@@ -39,6 +40,8 @@ main_questions = [{
   }]
 
 def entrypoint(a, e, s):
+  print_title('Créer un élection')
+
   election_name = prompt(main_questions)
 
   candidates = ask_multiple_items('candidats')

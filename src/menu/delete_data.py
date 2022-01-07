@@ -1,4 +1,5 @@
 from PyInquirer import prompt
+from utils.terminal import print_title
 
 questions = [
   {
@@ -39,6 +40,7 @@ def delete_elections(a, e, s):
   s.save()
 
 def entrypoint(a, e, s):  
+  print_title('Supprimer des données')
 
 
   answer = prompt(questions)
