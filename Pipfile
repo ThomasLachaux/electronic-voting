@@ -4,9 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-base58 = "*"
 pyinquirer = "*"
-gmpy2 = "*"
+pycryptodome = "*"
 
 [dev-packages]
 

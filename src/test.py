@@ -1,16 +1,20 @@
-import utils.elgamal
-import utils.password
-import utils.math
-from utils.constants import p, g
+from os import urandom
+from Crypto.Cipher import Blowfish
+from struct import pack
+import utils.blowfish
 
-password = utils.password.generate_password()
-pkdf = utils.password.generate_pkdf2(password, "0dc34485-1b2d-486b-8383-742ba09cf653")
+enc = utils.blowfish.encrypt('fdsfqdsqfsdqf', 'vfsvfdsvfdsvdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+dec = utils.blowfish.decrypt('fdsfqdsqfsdqf', enc)
+print(dec)
 
-pubkey =  utils.math.exponentiation(g, pkdf, p)
+# password = utils.password.generate_password()
+# pkdf = utils.password.generate_pkdf2(password, "0dc34485-1b2d-486b-8383-742ba09cf653")
 
-r, s = utils.elgamal.sign(pkdf, 3)
+# pubkey =  utils.math.exponentiation(g, pkdf, p)
 
-print(utils.elgamal.verify_signature(3, pubkey, r, s))
+# r, s = utils.elgamal.sign(pkdf, 3)
+
+# print(utils.elgamal.verify_signature(3, pubkey, r, s))
 
 
 # password = utils.password.generate_password()

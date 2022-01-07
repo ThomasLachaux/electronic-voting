@@ -6,8 +6,9 @@ from servers import serverA
 from servers import serverE
 from servers import serverS
 
-
-
+# TODO ameillorer l'UX (clear screen, ascii art ?)
+# TODO verifier un vote => pouvoir choisir une election
+# TODO email
 questions = {
   'type': 'list',
   'name': 'menu',
