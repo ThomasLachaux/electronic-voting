@@ -5,6 +5,7 @@ import random
 from servers import serverA
 from servers import serverE
 from servers import serverS
+from servers import ca
 
 # TODO ameillorer l'UX (clear screen, ascii art ?)
 # TODO verifier un vote => pouvoir choisir une election
@@ -24,6 +25,7 @@ questions = {
   ]
 }
 
+authority = ca.CA()
 a = serverA.serverA()
 e = serverE.serverE()
 s = serverS.serverS()
@@ -31,6 +33,13 @@ s = serverS.serverS()
 a.set_servers(e, s)
 e.set_servers(a, s)
 s.set_servers(a, e)
+
+# Check certificates for each client
+for name, server in (('a', a), ('e', e), ('s', s)):
+  valid_certificate = utils.elgamal.verify_signature(server.public_key, authority.public_key, server.certificate[0], server.certificate[1])
+
+  if not valid_certificate:
+    raise Exception(f'Le certificat du serveur {name} n\'est pas valide !')
 
 while True:
   answer = prompt(questions)['menu']
