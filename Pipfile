@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 pyinquirer = "*"
 pycryptodome = "*"
+python-dotenv = "*"
+mailjet-rest = "*"
 
 [dev-packages]
 

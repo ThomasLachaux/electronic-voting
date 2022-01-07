@@ -6,6 +6,8 @@ from servers import serverA
 from servers import serverE
 from servers import serverS
 from servers import ca
+from dotenv import load_dotenv
+load_dotenv()
 
 # TODO ameillorer l'UX (clear screen, ascii art ?)
 # TODO verifier un vote => pouvoir choisir une election
@@ -44,7 +46,6 @@ for name, server in (('a', a), ('e', e), ('s', s)):
 
 while True:
   answer = prompt(questions)['menu']
-  print('Vous êtes assuré de communiquer avec les vrais serveurs !')
 
   if answer == 'quit':
     break

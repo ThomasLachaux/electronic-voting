@@ -47,7 +47,7 @@ class serverS():
 
   def save(self):
     file = open(self.db_path, 'w')
-    file.write(json.dumps({'elections': self.elections}, indent=4))
+    file.write(json.dumps({'elections': self.elections, 'private_key': self.private_key, 'public_key': self.public_key, 'certificate': self.certificate}, indent=4))
     file.close()
 
   def load(self):

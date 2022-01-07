@@ -5,6 +5,7 @@ import utils.password, utils.math
 import random
 import copy
 from utils.constants import p, g
+import utils.emails
 
 
 class serverE():
@@ -57,10 +58,12 @@ class serverE():
     self.server_s.elections[election_id] = {'pubkeys': pubkeys, 'name': election['name'], 'candidates': election['candidates'], 'voted': [], 'results': [], 'signatures': []}
     self.server_s.save()
 
+    utils.emails.send_voter_email(election)
+
 
   def save(self):
     file = open(self.db_path, 'w')
-    file.write(json.dumps({'elections': self.elections}, indent=4))
+    file.write(json.dumps({'elections': self.elections, 'private_key': self.private_key, 'public_key': self.public_key, 'certificate': self.certificate}, indent=4))
     file.close()
 
   def load(self):
