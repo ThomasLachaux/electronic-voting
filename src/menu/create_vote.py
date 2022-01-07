@@ -4,6 +4,9 @@ from PyInquirer import prompt
 from utils.helpers import contains
 import utils.elgamal
 import utils.zero_knowledge_proof
+import utils.password
+import json
+import utils.blowfish
 
 
 def entrypoint(a, e, s):
@@ -46,7 +49,16 @@ def entrypoint(a, e, s):
 
   ballot = {'election_id': election_id, 'user_id': user_id, 'encrypted_candidate': encrypted_candidate, 'signature': signature, 'pubkey': user['pubkey']}
 
-  s.vote(ballot)
+
+  serialized_ballot = json.dumps(ballot)
+
+  secret_key = utils.blowfish.generate_secret_key()
+
+  encrypted_ballot = utils.blowfish.encrypt(secret_key, serialized_ballot)
+  encrypted_key = utils.elgamal.encrypt(secret_key, s.public_key)
+
+
+  s.vote(encrypted_ballot, encrypted_key)
 
 if __name__ == '__main__':
   entrypoint()

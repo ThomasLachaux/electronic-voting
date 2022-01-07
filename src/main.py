@@ -41,8 +41,10 @@ for name, server in (('a', a), ('e', e), ('s', s)):
   if not valid_certificate:
     raise Exception(f'Le certificat du serveur {name} n\'est pas valide !')
 
+
 while True:
   answer = prompt(questions)['menu']
+  print('Vous êtes assuré de communiquer avec les vrais serveurs !')
 
   if answer == 'quit':
     break

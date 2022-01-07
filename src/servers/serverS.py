@@ -1,6 +1,8 @@
 from os import path
 import json
 import utils.zero_knowledge_proof
+import utils.elgamal
+import utils.blowfish
 
 class serverS():
   """
@@ -13,7 +15,11 @@ class serverS():
       
       self.load()
 
-  def vote(self, ballot):
+  def vote(self, encrypted_ballot, encrypted_key):
+    secret_key = utils.elgamal.decrypt(encrypted_key[0], encrypted_key[1], self.private_key)
+    serialized_ballot = utils.blowfish.decrypt(secret_key, encrypted_ballot)
+    ballot = json.loads(serialized_ballot)
+
     challenge_response, challenge_proof, challenge_hash = ballot['signature']
 
     if not utils.zero_knowledge_proof.verify(ballot['pubkey'], challenge_response, challenge_proof):
