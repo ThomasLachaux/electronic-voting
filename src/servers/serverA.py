@@ -74,6 +74,9 @@ class serverA():
       data = json.load(file)
       self.elections = data['elections']
       self.users = data['users']
+      self.private_key = data['private_key']
+      self.public_key = data['public_key']
+      self.certificate = data['certificate']
 
     else:
       self.elections = {}

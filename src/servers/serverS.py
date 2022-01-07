@@ -49,6 +49,9 @@ class serverS():
       file = open(self.db_path, 'r')
       data = json.load(file)
       self.elections = data['elections']
+      self.private_key = data['private_key']
+      self.public_key = data['public_key']
+      self.certificate = data['certificate']
 
     else:
       self.elections = {}

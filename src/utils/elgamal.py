@@ -22,7 +22,7 @@ def decrypt(c1, c2, election_privkey):
 
   return m
 
-def sign (privkey_signer, message):
+def sign(privkey_signer, message):
   s = 0
   while s == 0:
 

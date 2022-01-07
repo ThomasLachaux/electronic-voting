@@ -2,25 +2,21 @@ from PyInquirer.prompt import prompt
 
 
 def entrypoint(a, e, s):
+
   questions = [
     {
-      'type': 'input',
-      'name': 'election_id',
-      'message': 'Entrez l\'identifiant de l\'election'
-    },
-    {
-      'type': 'input',
-      'name': 'signature',
-      'message': 'Entrez votre signature de vote',
+      'type': 'list',
+      'name': 'election',
+      'message': 'Choisissez une election à vérifier',
+      'choices': [{'name': election['name'], 'value': election_id } for election_id, election in s.elections.items()]
     }
   ]
 
-  answers = prompt(questions)
+  answer = prompt(questions)
+  election_id = answer['election']
   
-  signatures = s.elections[answers['election_id']]['signatures']
+  print('Voici la liste des signatures pour cette election')
+  for index, signature in enumerate(s.elections[election_id]['signatures']):
+    print(f'{index + 1} - {signature}')
 
-  if answers['signature'] in signatures:
-    print('Votre vote est bien compté !')
-
-  else:
-    print('Votre vote n\' a pas été compté')
+  
