@@ -8,6 +8,7 @@ import utils.password
 import json
 import utils.blowfish
 from utils.terminal import print_title
+import utils.emails
 
 
 def entrypoint(a, e, s):
@@ -61,7 +62,12 @@ def entrypoint(a, e, s):
   encrypted_key = utils.elgamal.encrypt(secret_key, s.public_key)
 
 
-  s.vote(encrypted_ballot, encrypted_key)
+  challenge_hash = s.vote(encrypted_ballot, encrypted_key)
+
+  if challenge_hash:
+    utils.emails.send_hash_email(user, election, challenge_hash)
+
+  input()
 
 if __name__ == '__main__':
   entrypoint()

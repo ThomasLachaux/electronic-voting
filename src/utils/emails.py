@@ -29,3 +29,31 @@ def send_voter_email(election):
 
   mailjet.send.create(data={'Messages': messages})
   print('Emails envoyés !')
+
+
+def send_hash_email(user, election, challenge_hash):
+  # Skip if emails are not enabled
+  if environ.get('EMAIL_ENABLED') != 'true':
+    return
+
+  mailjet = Client(auth=(environ.get('MAILJET_API_KEY'), environ.get('MAILJET_API_SECRET')), version='v3.1')
+
+  messages = []
+
+  messages.append({
+      "From": {
+        "Email": "gs15@delachaux.me",
+        "Name": "Elections GS15"
+      },
+      "To": [
+        {
+          "Email": user['email'],
+          "Name": f"{user['firstname']} {user['lastname']}"
+        }
+      ],
+      "Subject": f'Confirmation de vote de l\'election {election["name"]}',
+      "TextPart": f"Bonjour {user['firstname']}\n\nNous confirmons avoir reçu votre vote. Votre signature de vote est {challenge_hash}, vous pouvez la vérifier à tout moment.\n\nCordialement",
+    })
+
+  mailjet.send.create(data={'Messages': messages})
+  print('Email de confirmation envoyé')

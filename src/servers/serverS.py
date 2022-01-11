@@ -24,14 +24,14 @@ class serverS():
 
     if not utils.zero_knowledge_proof.verify(ballot['pubkey'], challenge_response, challenge_proof):
       print('Code secret incorrect !')
-      return
+      return False
 
     election = self.elections[ballot['election_id']]
 
     # If the user has already voted
     if ballot['pubkey'] in election['voted']:
       print("Dommage ! On ne vote qu'une fois !")
-      return
+      return False
 
     election['voted'].append(ballot['pubkey'])
     election['results'].append(ballot['encrypted_candidate'])
@@ -40,6 +40,8 @@ class serverS():
     print('A voté !')
 
     print(f'Votre signature de vote est : {challenge_hash}')
+
+    return challenge_hash
 
   def set_servers(self, a, e):
     self.server_a = a
